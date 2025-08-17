@@ -1,0 +1,103 @@
+﻿@model List<CalendarsApp.Entities.Event>
+@{
+    ViewBag.Title = "EventList";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+<style>
+    .table-wrapper {
+        background: #ffffff;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        padding: 30px;
+        margin-top: 30px;
+    }
+
+    .table thead th {
+        background-color: #343a40;
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .table td, .table th {
+        vertical-align: middle !important;
+    }
+
+    .btn {
+        min-width: 90px;
+    }
+
+    .page-title {
+        font-weight: 700;
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+    }
+
+    .fa-calendar-alt {
+        color: #3498db;
+    }
+
+    .no-data {
+        padding: 20px;
+        background: #f8d7da;
+        color: #721c24;
+        border-radius: 5px;
+        text-align: center;
+    }
+</style>
+
+<div class="container">
+    <div class="table-wrapper">
+        <h2 class="page-title mb-4">
+            <i class="fa fa-calendar-alt"></i> Etkinlik Listesi
+        </h2>
+
+        @if (Model != null && Model.Any())
+        {
+            <table class="table table-bordered table-hover table-striped">
+                <thead class="text-center">
+                    <tr>
+                        <th>#</th>
+                        <th>Etkinlik Adı</th>
+                        <th>Başlama Tarihi</th>
+                        <th>Bitiş Tarihi</th>
+                        <th>Kategorisi</th>
+                        <th>Güncelle</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="text-center">
+                            <td>@item.Id</td>
+                            <td>@item.Title</td>
+                            <td>@(item.Start?.ToString("dd.MM.yyyy"))</td>
+                            <td>@(item.End?.ToString("dd.MM.yyyy"))</td>
+                            <td>@item.CategoryId</td>
+                            <td>
+                                <a href="/Event/EventUpdate/@item.Id" class="btn btn-success btn-sm">
+                                    <i class="fas fa-edit me-1"></i> Güncelle
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/Event/EventDelete/@item.Id" class="btn btn-danger btn-sm" onclick="return confirm('Etkinliği silmek istediğinizden emin misiniz?');">
+                                    <i class="fas fa-trash-alt me-1"></i> Sil
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="no-data">
+                <i class="fas fa-info-circle"></i> Henüz etkinlik eklenmemiş.
+            </div>
+        }
+    </div>
+</div>

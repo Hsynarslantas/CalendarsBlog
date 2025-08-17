@@ -1,0 +1,33 @@
+﻿@model CalendarsApp.Entities.Event
+@{
+    ViewBag.Title = "EventUpdate";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<div class="container">
+    <br /><br />
+    <form method="post"
+    <label>Etkinlik Adı</label>
+    @Html.TextAreaFor(x => x.Title, new { @class = "form-control" })
+    <br />
+    <label>Etkinlik Başlangıç Tarihi</label>
+    @Html.TextAreaFor(x => x.Start, new { @class = "form-control" })
+    <br />
+    <label>Etkinlik Bitiş Tarihi</label>
+    @Html.TextAreaFor(x => x.End, new { @class = "form-control" })
+    <br />
+    <label>Etkinlik Açıklaması</label>
+    @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+    <br />
+    <label>Günlük Olma Durumu</label>
+    @Html.TextAreaFor(x => x.IsAllDay, new { @class = "form-control" })
+    <br />
+    <label>Kategori Id</label>
+    @Html.TextAreaFor(x => x.CategoryId, new { @class = "form-control" })
+    <br />
+
+    <button class="btn btn-primary">Etkinliği Kaydet</button>
+    </form>
+</div>
+

@@ -1,0 +1,109 @@
+﻿@model List<CalendarsApp.Entities.Category>
+@{
+    ViewBag.Title = "CategoryList";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+<style>
+    .category-wrapper {
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        margin-top: 30px;
+    }
+
+    .category-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+    }
+
+    .table th {
+        background-color: #343a40;
+        color: white;
+        text-align: center;
+    }
+
+    .table td {
+        vertical-align: middle !important;
+        text-align: center;
+    }
+
+    .color-badge {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+    }
+
+    .btn i {
+        margin-right: 5px;
+    }
+
+    .no-data {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 20px;
+        border-radius: 6px;
+        text-align: center;
+    }
+</style>
+
+<div class="container">
+    <div class="category-wrapper">
+        <h2 class="category-title"><i class="fa fa-tags"></i> Kategori Listesi</h2>
+
+        @if (Model != null && Model.Any())
+        {
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Kategori Adı</th>
+                        <th>Renk</th>
+                        <th>Güncelle</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>
+                                <div class="color-badge" style="background-color:@item.Color;" title="@item.Color"></div>
+                                <br />
+                                <small>@item.Color</small>
+                            </td>
+                            <td>
+                                <a href="/Category/CategoryUpdate/@item.Id" class="btn btn-sm btn-success">
+                                    <i class="fas fa-edit"></i> Güncelle
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/Category/CategoryDelete/@item.Id" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">
+                                    <i class="fas fa-trash-alt"></i> Sil
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="no-data">
+                <i class="fas fa-exclamation-circle"></i> Hiç kategori eklenmemiş.
+            </div>
+        }
+    </div>
+</div>
+

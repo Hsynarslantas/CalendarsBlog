@@ -1,0 +1,44 @@
+﻿<form id="addEventForm" method="post" action="@Url.Action("AddEvent", "Calendar")">
+    <div class="form-group">
+        <label for="categoryId">Kategori</label>
+        @Html.DropDownList("categoryId", (SelectList)ViewBag.Categories, "-- Kategori Seç --", new { @class = "form-control", required = "required" })
+    </div>
+
+    <div class="form-group">
+        <label for="title">Etkinlik Başlığı</label>
+        <input type="text" id="title" name="title" class="form-control" placeholder="Etkinlik başlığını yazınız" required />
+    </div>
+
+    <div class="form-group">
+        <label for="start">Başlangıç Tarihi</label>
+        <input type="datetime-local" id="start" name="start" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="end">Bitiş Tarihi</label>
+        <input type="datetime-local" id="end" name="end" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Etkinlik Ekle</button>
+</form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $('#addEventForm').submit(function(e) {
+    e.preventDefault(); // formun normal submit olmasını engelle
+
+    var data = $(this).serialize();
+
+    $.post('@Url.Action("AddEvent", "Calendar")', data)
+      .done(function(response) {
+        if (response.success) {
+          // Başarılıysa index sayfasına yönlendir
+          window.location.href = '@Url.Action("Index", "Calendar")';
+        } else {
+          alert('Hata: ' + response.message);
+        }
+      })
+      .fail(function() {
+        alert('Sunucu hatası oluştu.');
+      });
+  });
+</script>
